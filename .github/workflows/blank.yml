@@ -19,13 +19,12 @@ jobs:
         tar -xf inso-linux-3.14.0-beta.1.tar.xz
     - name: Lint OpenAPI Spec  # Lint the OpenAPI spec using Insomnia CLI
       run: ./inso lint spec pipe1.yml
-#     - name: Installing NodeJs
-#       uses: actions/setup-node@v1
-#     - name: Installing inso
-#       run:  npm install -g insomnia
-#     - name: Run Unit Tests
-#       run: ./inso run test --ci --src pipe1.yml    
-      
+    - name: Installing NodeJs
+      uses: actions/setup-node@v1
+    - name: Installing inso
+      run:  npm install -g insomnia
+    - name: Run Unit Tests
+      run: ./inso run test --ci --src .insomnia     
    
 #     - name: Run Tes the spec
 #       run: ./inso run test pipe1.yml
