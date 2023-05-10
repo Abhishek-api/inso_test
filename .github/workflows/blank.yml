@@ -24,7 +24,8 @@ jobs:
     - name: Installing inso
       run:  npm install -g insomnia
     - name: Run Unit Tests
-      run: ./inso run test spc_30019d --env env_508cebe22825h
+      run: ./inso run test "ApiActionDemo" --env "New Enviroment"
+#       run: ./inso run test spc_30019d --env env_508cebe22825h
   
    
 #     - name: Run Tes the spec
