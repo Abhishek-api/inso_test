@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   description: OpenAPI Specification for the Mock Targets 
   version: 1.0.3
-  title: My Mock Target API
+  title: My Mock Target APIs
   contact:
     email: mockmail@gmail.com
     name: vinod
