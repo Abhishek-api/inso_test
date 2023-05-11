@@ -1,10 +1,36 @@
 extends: spectral:oas
+# rules:
+#   adidas-paths-kebab-case:
+#     description: All endpoints/paths MUST follow kebab-case
+#     severity: error
+#     given: $.paths[*]~
+#     then:
+#       function: pattern
+#       functionOptions:
+#         match: "^\/([a-z0-9]+(-[a-z0-9]+))?(\/[a-z0-9]+(-[a-z0-9]+)|\/{.+})*$
 rules:
-  adidas-paths-kebab-case:
-    description: All endpoints/paths MUST follow kebab-case
-    severity: error
-    given: $.paths[*]~
-    then:
-      function: pattern
-      functionOptions:
-        match: "^\/([a-z0-9]+(-[a-z0-9]+))?(\/[a-z0-9]+(-[a-z0-9]+)|\/{.+})*$"
+  operation-description: false
+  operation-tags: false
+  operation-operationId: "error"
+  operation-operationId-unique: "error"
+  response-property-names:
+    severity: warn
+    message: "Invalid response property name: {{property}} (expected: lowercase with underscores)"
+    recommended: true
+    given: "$..components.schemas.*.properties[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z_]+$"
+  
+except:
+  # VGIS Exceptions - We don't know what the example should look like
+  "definitions/vonage-business-cloud/vgis.yml#/components/schemas/Event":
+    - required-property-example
+  "definitions/vonage-business-cloud/vgis.yml#/components/schemas/Call":
+    - required-property-example
+  "definitions/vonage-business-cloud/vgis.yml#/components/schemas/CallCreate":
+    - required-property-example
+  "definitions/vonage-business-cloud/vgis.yml#/components/schemas/CallTransfer":
+    - required-property-example
+  
