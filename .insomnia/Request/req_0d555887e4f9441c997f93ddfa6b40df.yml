@@ -1,0 +1,21 @@
+_id: req_0d555887e4f9441c997f93ddfa6b40df
+type: Request
+parentId: wrk_74a08c3c8e98438ba0cd251cd940e8fd
+modified: 1683887287300
+created: 1683887201553
+url: "{{ _.base_url }}/json"
+name: Retrieve JSON data
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1683887201553
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
