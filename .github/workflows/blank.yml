@@ -28,7 +28,7 @@ jobs:
 # q   run: ./inso run test spc_30019d --env env_508cebe22825h
 
     - name: Generate kong.yaml  # Generate Kong configuration in declarative format
-      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml --kongVersion 3
+      run: ./inso generate config "spc_018a28" --type declarative -o kong.yaml --kongVersion 3
 
     - name: open kong.yaml  # Display the contents of the generated Kong configuration
       run: cat /home/runner/work/inso_test/inso_test/kong.yaml
