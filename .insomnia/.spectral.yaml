@@ -1,11 +1,12 @@
 extends: spectral:oas
+functions:
+  - dictionary
 rules:
-  tag-description:
-    description: Please provide a description for each tag.
-    documentationUrl: https://www.example.com/docs/tag-description.md
-    recommended: false
+  no-evil-words:
+    message: "error"
     severity: error
-    given: $.tags[*]
+    given:
+      - "$.info.title"
+      - "$.info.description"
     then:
-      field: description
-      function: truthy
+      function: "dictionary"
