@@ -1,0 +1,14 @@
+_id: env_8d9b595cc0ac41d9a96c1b376e426721
+type: Environment
+parentId: env_1084613640738d8dc1921e8bcddaa9db39754243
+modified: 1684140014982
+created: 1684139706535
+name: OpenApi
+data:
+  base_url: https://httpbin.org
+dataPropertyOrder:
+  "&":
+    - base_url
+color: null
+isPrivate: false
+metaSortKey: 1684139706535
