@@ -1,7 +1,7 @@
 extends: spectral:oas
 rules:
   adidas-paths-kebab-case:
-    description: All endpoints/paths MUST follow kebab-case
+    description: All endpoints/paths MUST follow camel-case
     severity: error
     given: $.paths[*]~
     then:
