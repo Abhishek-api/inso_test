@@ -24,7 +24,7 @@ jobs:
     - name: Lint OpenAPI Spec  # Lint the OpenAPI spec using Insomnia CLI
       run: ./inso lint spec "spc_018a28"
     - name: Test the Inso OpenApSpec
-      run: ./inso run test spc_018a28 --env uts_31200a
+      run: ./inso run test "spc_018a28" --env "uts_31200a"
 # q   run: ./inso run test spc_30019d --env env_508cebe22825h
 
     - name: Generate kong.yaml  # Generate Kong configuration in declarative format
