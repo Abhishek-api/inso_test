@@ -1,10 +1,9 @@
-name: Demo to Delpoy OAS to Kong # Specify the name of the deployment
-
+name: Demo to Delpoy OAS to Kong # Specify the name of the deploymen
 on:
   push:
     branches:
       - main  # Trigger the deployment when pushing to the main branch
-#
+#d
 jobs:
   OAS_To_KONG:
     runs-on: ubuntu-latest  # Use Ubuntu as the operating system for the job
@@ -17,29 +16,49 @@ jobs:
       run: |
         wget https://github.com/Kong/insomnia/releases/download/lib%403.14.0-beta.1/inso-linux-3.14.0-beta.1.tar.xz
         tar -xf inso-linux-3.14.0-beta.1.tar.xz
+        
     - name: Installing NodeJs
       uses: actions/setup-node@v1
+      
     - name: Installing inso
       run:  npm install -g insomnia
+      
     - name: Lint OpenAPI Spec  # Lint the OpenAPI spec using Insomnia CLI
-      run: ./inso lint spec ./inso/*.yaml
+      run: ./inso lint spec pipe1.yml
+      
+   
+      
 #     - name: Test the Inso OpenApSpec
-#       run: ./inso run test "spc_018a28" --env "uts_31200a"
-# q   run: ./inso run test spc_30019d --env env_508cebe22825h
+#       run: ./inso run test "ApiActionDemo" --env "OpenApiEnv" --verbose
+      
+    - name: Generate kong.yaml  # Generate Kong configuration in declarative format
+      run: ./inso generate config pipe1.yml --type declarative -o kong.yaml --kongVersion 3
 
-#     - name: Generate kong.yaml  # Generate Kong configuration in declarative format
-#       run: ./inso generate config "spc_018a28" --type declarative -o kong.yaml --kongVersion 3
+    - name: open kong.yaml  # Display the contents of the generated Kong configuration
+      run: cat /home/runner/work/ApiActionDemo/ApiActionDemo/kong.yaml
+ 
+    - name: install deck CLI  # Install deck CLI for syncing Kong configuration
+      run: |
+        curl -sL https://github.com/kong/deck/releases/download/v1.17.2/deck_1.17.2_linux_amd64.tar.gz -o deck.tar.gz
+        tar -xf deck.tar.gz -C /tmp 
+        sudo cp /tmp/deck /usr/local/bin/
 
-#     - name: open kong.yaml  # Display the contents of the generated Kong configuration
-#       run: cat /home/runner/work/inso_test/inso_test/kong.yaml
-#     - name: install deck CLI  # Install deck CLI for syncing Kong configuration
+    - name: Deck dump
+      run: deck dump -o a.yaml --kong-addr http://34.125.43.26:8001
+      
+    - name: Uploading the file in Cloud Storage
+      run: gsutil cp a.yaml gs://kong-bucket/
+
+      
+    - name: check  # Validate the Kong configuration using deck CLI
+      run: deck validate -s /home/runner/work/ApiActionDemo/ApiActionDemo/kong.yaml 
+  
+#     - name: Convert kong declarative  # Convert the Kong configuration to version 3.x using deck CLI
 #       run: |
-#         curl -sL https://github.com/kong/deck/releases/download/v1.17.2/deck_1.17.2_linux_amd64.tar.gz -o deck.tar.gz
-#         tar -xf deck.tar.gz -C /tmp 
-#         sudo cp /tmp/deck /usr/local/bin/
+#           deck convert --from kong-gateway-2.x --to kong-gateway-3.x --input-file kong.yaml --output-file new-kong.yaml
 
-# #     - name: Deck dump
-# #       run: deck dump -o a.yaml --headers --kong-addr http://34.125.142.73:8001       
+    - name: Deploy to Kong  # Sync the Kong configuration to Kong API Gateway
+      run: deck sync -s kong.yaml  --kong-addr http://34.125.43.26:8001      
 #     - name: check  # Validate the Kong configuration using deck CLI
 #       run: deck validate -s /home/runner/work/inso_test/inso_test/kong.yaml 
   
