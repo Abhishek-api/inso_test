@@ -1,12 +1,12 @@
 extends: spectral:oas
+functions:
+  - dictionary
 rules:
-  info-contact:
+  no-evil-words:
+    message: "error"
+    given:
+      - $.info.title
+      - $.info.description
     severity: error
-  info-description:
-    severity: error
-  operation-description:
-    severity: error
-  operation-operationId:
-    severity: error
-  operation-tags:
-    severity: error
+    then:
+      function: "dictionary"
