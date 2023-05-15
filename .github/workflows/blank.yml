@@ -1,13 +1,23 @@
-name: Demo to Delpoy OAS to Kong # Specify the name of the deploymen
+name: Demo to Delpoy OAS to Kong # Specify the name of the deployment
 on:
   push:
     branches:
       - main  # Trigger the deployment when pushing to the main branch
-#d
+#j
 jobs:
   OAS_To_KONG:
     runs-on: ubuntu-latest  # Use Ubuntu as the operating system for the job
-
+    
+#     strategy:
+#       matrix:
+#         workspace:
+#           - default
+#           - sandbox
+#           - production
+#           - qa
+          
+#     env:
+#       FOLDER_PATH: "kongspec"
     steps:
     - name: Checkout Code  # Checkout the code from the repository
       uses: actions/checkout@v2
